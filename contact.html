@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .contain {
+            background-color: #fff;
+            padding:40px;
+            margin: 40px 450px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 120%;
+            text-align: center;
+            
+        }
+        .contain h2 {
+            color: #ff6600;
+        }
+        .contain p {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-top: 10px;
+            color: #333;
+            text-align: left;
+        }
+        form input, form textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 16px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .success-message {
+            color: green;
+            font-size: 16px;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+  <div class="top-nav">
+    <div class="container d-flex">
+      <p>Order Online Or Call Us: (91) 111-222-3334</p>
+      
+    </div>
+  </div>
+  <div class="navigation">
+    <div class="nav-center container d-flex">
+      <a href="index.html" class="logo"><h1>Clothing</h1></a>
+
+      <ul class="nav-list d-flex">
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="product.html" class="nav-link">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+            <a href="Signup.html" class="nav-link">Sign Up</a>
+          </li>
+        
+      </ul>
+
+     
+    </div>
+  </div>
+    <div class="contain">
+        <h2>TALKING TO US IS EASY!!</h2>
+        <br>
+        <p>Please fill out the form below and we will get in touch with you shortly.</p>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span class="error" id="name-error"></span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="email-error"></span>
+
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span class="error" id="message-error"></span>
+
+            <input type="submit" value="Send Message">
+        </form>
+        <div class="success-message" id="success-message">Form submitted successfully!</div>
+    </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            // Name validation
+            const name = document.getElementById('name').value;
+            if (name.trim() === "") {
+                isValid = false;
+                document.getElementById('name-error').textContent = "Name is required.";
+            } else {
+                document.getElementById('name-error').textContent = "";
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                isValid = false;
+                document.getElementById('email-error').textContent = "Invalid email address.";
+            } else {
+                document.getElementById('email-error').textContent = "";
+            }
+
+         
+
+            // Message validation
+            const message = document.getElementById('message').value;
+            if (message.trim() === "") {
+                isValid = false;
+                document.getElementById('message-error').textContent = "Message is required.";
+            } else {
+                document.getElementById('message-error').textContent = "";
+            }
+
+            if (isValid) {
+                // Clear form fields
+                document.getElementById('contact-form').reset();
+                
+                // Show success message
+                document.getElementById('success-message').style.display = "block";
+
+                // Hide success message after a few seconds
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = "none";
+                }, 5000);
+
+                // Here, you can use fetch or XMLHttpRequest to send form data to the server
+                // fetch('submit_contact_form.php', {
+                //     method: 'POST',
+                //     body: new FormData(document.getElementById('contact-form'))
+                // }).then(response => {
+                //     if (response.ok) {
+                //         alert('Form submitted successfully!');
+                //         document.getElementById('contact-form').reset();
+                //         document.getElementById('success-message').style.display = "block";
+                //     } else {
+                //         alert('Error submitting form.');
+                //     }
+                // });
+            }
+        });
+    </script>
+    <!-- Footer -->
+<footer class="footer">
+    <div class="row">
+      <div class="col d-flex">
+        <h4>INFORMATION</h4>
+        <a href="">About us</a>
+        <a href="">Contact Us</a>
+        <a href="">Term & Conditions</a>
+        <a href="">Shipping Guide</a>
+      </div>
+      <div class="col d-flex">
+        <h4>USEFUL LINK</h4>
+        <a href="">Online Store</a>
+        <a href="">Customer Services</a>
+        <a href="">Promotion</a>
+        <a href="">Top Brands</a>
+      </div>
+      <div class="col d-flex">
+        <h4>Support</h4>
+        <a href="">111 Sai sarani, Mumbai-74.</a>
+        <a href="">electro@gmain.in</a>
+        <a href="">Nearest Location</a>
+        <a href="">+91 9594959697</a>
+      </div>
+      
+    </div>
+  </footer>
+</body>
+</html>

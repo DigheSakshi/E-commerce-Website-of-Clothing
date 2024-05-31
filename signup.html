@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .contain {
+            background-color: #fff;
+            padding: 40px;
+            margin:30px 460px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .contain h2 {
+            color: #ff6600;
+        }
+        .contain p {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-top: 10px;
+            color: #333;
+            text-align: left;
+        }
+        form input {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 16px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .success-message {
+            color: green;
+            font-size: 16px;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+<div class="top-nav">
+    <div class="container d-flex">
+      <p>Order Online Or Call Us: (91) 111-222-3334</p>
+      
+    </div>
+  </div>
+  <div class="navigation">
+    <div class="nav-center container d-flex">
+      <a href="index.html" class="logo"><h1>Clothing</h1></a>
+
+      <ul class="nav-list d-flex">
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="product.html" class="nav-link">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+            <a href="Signup.html" class="nav-link">Sign Up</a>
+          </li>
+        <li class="icons d-flex">
+          <a href="profile.html" class="icon">
+            <i class="bx bx-user"></i>
+          </a>
+          <div class="icon">
+            <i class="bx bx-search"></i>
+          </div>
+          <div class="icon">
+            <i class="bx bx-heart"></i>
+            <span class="d-flex">0</span>
+          </div>
+          <a href="cart.html" class="icon">
+            <i class="bx bx-cart"></i>
+            <span class="d-flex">0</span>
+          </a>
+        </li>
+      </ul>
+
+     
+    </div>
+  </div>
+    <div class="contain">
+        <h2>Let's Create an Account</h2>
+        <br>
+        <p>Please fill out the form below to create an account.</p>
+        <br>
+        <form id="signup-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span class="error" id="username-error"></span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="email-error"></span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error" id="password-error"></span>
+
+            <input type="submit" value="Sign Up">
+        </form>
+        <div class="success-message" id="success-message">Account created successfully!</div>
+    </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            // Username validation
+            const username = document.getElementById('username').value;
+            if (username.trim() === "") {
+                isValid = false;
+                document.getElementById('username-error').textContent = "Username is required.";
+            } else {
+                document.getElementById('username-error').textContent = "";
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                isValid = false;
+                document.getElementById('email-error').textContent = "Invalid email address.";
+            } else {
+                document.getElementById('email-error').textContent = "";
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            if (password.trim() === "") {
+                isValid = false;
+                document.getElementById('password-error').textContent = "Password is required.";
+            } else {
+                document.getElementById('password-error').textContent = "";
+            }
+
+            if (isValid) {
+                // Clear form fields
+                document.getElementById('signup-form').reset();
+                
+                // Show success message
+                document.getElementById('success-message').style.display = "block";
+
+                // Hide success message after a few seconds
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = "none";
+                }, 5000);
+
+                // Here, you can use fetch or XMLHttpRequest to send form data to the server
+                // fetch('submit_signup_form.php', {
+                //     method: 'POST',
+                //     body: new FormData(document.getElementById('signup-form'))
+                // }).then(response => {
+                //     if (response.ok) {
+                //         document.getElementById('signup-form').reset();
+                //         document.getElementById('success-message').style.display = "block";
+                //     } else {
+                //         alert('Error submitting form.');
+                //     }
+                // });
+            }
+        });
+    </script>
+    <!-- Footer -->
+<br>
+<br>
+<br>
+<footer class="footer">
+    <div class="row">
+      <div class="col d-flex">
+        <h4>INFORMATION</h4>
+        <a href="">About us</a>
+        <a href="">Contact Us</a>
+        <a href="">Term & Conditions</a>
+        <a href="">Shipping Guide</a>
+      </div>
+      <div class="col d-flex">
+        <h4>USEFUL LINK</h4>
+        <a href="">Online Store</a>
+        <a href="">Customer Services</a>
+        <a href="">Promotion</a>
+        <a href="">Top Brands</a>
+      </div>
+      <div class="col d-flex">
+        <h4>Support</h4>
+        <a href="">111 Sai sarani, Mumbai-74.</a>
+        <a href="">electro@gmain.in</a>
+        <a href="">Nearest Location</a>
+        <a href="">+91 9594959697</a>
+      </div>
+      <div class="col d-flex">
+        <span><i class='bx bxl-facebook-square'></i></span>
+        <span><i class='bx bxl-instagram-alt' ></i></span>
+        <span><i class='bx bxl-github' ></i></span>
+        <span><i class='bx bxl-twitter' ></i></span>
+        <span><i class='bx bxl-pinterest' ></i></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
